@@ -21,17 +21,30 @@ class App extends Component {
   
   state = {
     photos: [],
-    favoritos:[
-    ],
+    favoritos:[],
     newFavorito: false,
   }
-  
+
   eliminarFavorito = (favorito) => {
     const { favoritos } = this.state;
     const newFavoritos = favoritos.filter( x => x.id !== favorito.id)
     this.setState({favoritos: newFavoritos})
   }
-
+  eliminarFavoritos = (favorito) => {
+    const { favoritos } = this.state;
+    // This code checks if the object "favorito" is included in the array
+    // "favoritos" and, if it is, removes it. Otherwise, it adds it to the
+    // array "favoritos".
+    // It is used to add or remove a favorite from a list of favorites.
+    if(favoritos.find( x => x.id === favorito.id)){
+        const newFavoritos = favoritos.filter( x => x.id !== favorito.id)
+        this.setState({favoritos: newFavoritos})
+    }else{
+      favoritos.push(favorito)
+      this.setState({favoritos})
+      this.setState({newFavorito: true})
+    }
+  }
   agregarFavoritos = (favorito) => {
     const { favoritos } = this.state;
     // This code checks if the object "favorito" is included in the array
@@ -52,9 +65,11 @@ class App extends Component {
     fetch('https://api.escuelajs.co/api/v1/products')
       .then(res => res.json())
       .then(res2 => {
+        console.log(res2)
         this.setState({ photos: res2 })
       })
   }
+
   render() {
     return (
       <div style={styles.container}>
@@ -70,6 +85,7 @@ class App extends Component {
         </Navbar>
         <Layout>
           <Gallery
+            eliminarFavoritos={this.eliminarFavoritos}
             agregarFavoritos={this.agregarFavoritos}
             photos={this.state.photos}
           />
@@ -78,4 +94,5 @@ class App extends Component {
     );
   }
 }
+
 export default App;

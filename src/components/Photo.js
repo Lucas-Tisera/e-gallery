@@ -19,10 +19,16 @@ export default class Photo extends Component {
         favorite: false
     }
     render() {
-        const { photo, agregarFavoritos } = this.props;
+        const { photo, agregarFavoritos, eliminarFavoritos } = this.props;
+        console.log(photo)
         const favorite = () => {
-            agregarFavoritos(photo)
-            this.setState({ favorite: !this.state.favorite })
+            if (this.state.favorite === false) {
+                this.setState({ favorite: !this.state.favorite })
+                agregarFavoritos(photo)
+            } else {
+                this.setState({ favorite: !this.state.favorite })
+                eliminarFavoritos(photo)
+            }
         }
             return (
             <div style={styles.photo}>
@@ -45,23 +51,15 @@ export class ViewedPhoto extends Component {
         favorite: true
     }
     render() {
-        const { photo, eliminarFavorito } = this.props;
+        const { photo } = this.props;
         console.log(photo)
-        const favorite = () => {
-            eliminarFavorito(photo)
-            this.setState({ favorite: false })
-        }
             return (
             <div style={styles.photo}>
                 <img style={styles.img} alt={photo.name} src={photo} />
-                {/* <Button onClick={favorite} >
-                    {
-                    this.state.favorite ?
+                <Button disabled>
                         <GoHeartFill color='#E9725A' /> 
-                    : 
-                        <GoHeart color='#E9725A' />
-                    } 
-                </Button> */}
+
+                </Button>
             </div>
         )
     }

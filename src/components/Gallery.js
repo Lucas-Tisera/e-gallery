@@ -9,11 +9,12 @@ const styles = {
 }
 class Gallery extends Component {
     render() {
-        const{ photos, agregarFavoritos } = this.props;
+        const{ photos, agregarFavoritos, eliminarFavoritos } = this.props;
         return(
             <div style={styles.photos}>
                 {photos.map((photo) => (
                     <Photo
+                    eliminarFavoritos={eliminarFavoritos}
                         agregarFavoritos={agregarFavoritos}
                         key={photo.id}
                         photo={photo}
