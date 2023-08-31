@@ -62,15 +62,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://api.escuelajs.co/api/v1/products')
+    fetch('https://set-collie-93.hasura.app/api/rest/getallcards', 
+    { method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-hasura-admin-secret': 'BmqOX8qmMKtlrzGvk0vJ5X7Nx5RI8007yImoDwRdxhuc0BO4TKUIaHIqndNAWDX0'
+      },
+      }
+    )
       .then(res => res.json())
-      .then(res2 => {
-        console.log(res2)
-        this.setState({ photos: res2 })
-      })
-  }
-
-  render() {
+      .then(data => this.setState({ photos: data }))
+    }
+    
+    render() {
     return (
       <div style={styles.container}>
         <Navbar>

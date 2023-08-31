@@ -10,16 +10,20 @@ const styles = {
 class Gallery extends Component {
     render() {
         const{ photos, agregarFavoritos, eliminarFavoritos } = this.props;
+        console.log("photos")
+        console.log(photos.posts)
         return(
             <div style={styles.photos}>
-                {photos.map((photo) => (
+                {photos.posts ?    
+                photos.posts.map((photo) => (
                     <Photo
                     eliminarFavoritos={eliminarFavoritos}
-                        agregarFavoritos={agregarFavoritos}
-                        key={photo.id}
-                        photo={photo}
+                    agregarFavoritos={agregarFavoritos}
+                    key={photo.id_img}
+                    photo={photo}
                     />
-                ))}
+                    ))
+                    : <h1>Not Found</h1>}
             </div>
         )
     }

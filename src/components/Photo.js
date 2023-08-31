@@ -32,7 +32,7 @@ export default class Photo extends Component {
         }
             return (
             <div style={styles.photo}>
-                <img style={styles.img} alt={photo.name} src={photo.images} />
+                <img style={styles.img} alt={photo.description} src={photo.img} />
                 <Button onClick={favorite} >
                     {
                     this.state.favorite ?
